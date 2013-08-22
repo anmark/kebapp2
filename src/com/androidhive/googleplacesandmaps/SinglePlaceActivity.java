@@ -1,5 +1,7 @@
 package com.androidhive.googleplacesandmaps;
 
+import com.androidhive.googleplacesandmaps.DBAdapter.Row;
+
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -29,8 +31,8 @@ public class SinglePlaceActivity extends Activity {
 
 	// Progress dialog
 	ProgressDialog pDialog;
-	
-	
+
+
 
 	// KEY Strings
 	public static String KEY_REFERENCE = "reference"; // id of the place
@@ -38,6 +40,14 @@ public class SinglePlaceActivity extends Activity {
 	private RatingBar ratingBar;
 	private TextView txtRatingValue;
 	private DBAdapter db;
+	private boolean placeExist;
+	private String reference;
+	
+	private String name;
+	private String address;
+	private String phone;
+	private String latitude;
+	private String longitude;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -48,35 +58,59 @@ public class SinglePlaceActivity extends Activity {
 		Intent i = getIntent();
 
 		// Place referece id
-		String reference = i.getStringExtra(KEY_REFERENCE);
+		reference = i.getStringExtra(KEY_REFERENCE);
 
 		// Calling a Async Background thread
 		new LoadSinglePlaceDetails().execute(reference);
-		
-		//DBAdapter db = new DBAdapter(getApplicationContext());
-		//db.open();
-		
-		
-		addListenerOnRatingBar();
-	}
-	
-	public void addListenerOnRatingBar() {
-		 
+
 		ratingBar = (RatingBar) findViewById(R.id.ratingBar);
 		txtRatingValue = (TextView) findViewById(R.id.txtRatingValue);
-	
+
+		DBAdapter db = new DBAdapter(getApplicationContext());
+		db.open();
+		db.createRow("hallåaaa", "vad", 0, "");
+		
+		
+		
+		
+		//System.out.println(reference+ " " + name);
+		
+		//db.createRow(reference, name, 0, "");
+
+		for(Row row : db.getAllRows()){
+			System.out.println("placeID: "+ row.placeID + " Name: " + row.getName()+ " Rating: " + row.getRating() +" Comment: " + row.getComment());
+		}
+		db.close();
+
+		/*
+		placeExist = db.rowExists(placeDetails.result.getId());	
+		if(!placeExist){							
+			db.createRow(placeDetails.result.getId(), placeDetails.result.getName(), 0, "");
+			txtRatingValue.setText(0);
+			//TODO:comment
+		}
+
+		txtRatingValue.setText(Double.toString(db.getRow(placeDetails.result.getId()).getRating()));
+		 */
+		addListenerOnRatingBar();
+	}
+
+	public void addListenerOnRatingBar() {
+
 		//if rating value is changed,
 		//display the current rating value in the result (textview) automatically
 		ratingBar.setOnRatingBarChangeListener(new OnRatingBarChangeListener() {
 			public void onRatingChanged(RatingBar ratingBar, float rating,
-				boolean fromUser) {
-				
-				//db.updateRowRating(placeDetails.result.getId(), placeDetails.result.getName(), (double) rating);
+					boolean fromUser) {
+
+				if (placeDetails.result != null) {
+					//db.updateRowRatingById(KEY_REFERENCE, (double) rating);
+				}
 				txtRatingValue.setText(String.valueOf(rating));
-	 
+
 			}
 		});
-	  }
+	}
 
 
 	/**
@@ -105,7 +139,7 @@ public class SinglePlaceActivity extends Activity {
 
 			// creating Places class object
 			googlePlaces = new GooglePlaces();
-
+			//TODO:
 			// Check if used is connected to Internet
 			try {
 				placeDetails = googlePlaces.getPlaceDetails(reference);
@@ -113,6 +147,7 @@ public class SinglePlaceActivity extends Activity {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+			
 			return null;
 		}
 
@@ -131,24 +166,28 @@ public class SinglePlaceActivity extends Activity {
 					if(placeDetails != null){
 						String status = placeDetails.status;
 
-						// check place deatils status
+						// check place details status
 						// Check for all possible status
 						if(status.equals("OK")){
 							if (placeDetails.result != null) {
-								String name = placeDetails.result.name;
-								String address = placeDetails.result.formatted_address;
-								String phone = placeDetails.result.formatted_phone_number;
-								String latitude = Double.toString(placeDetails.result.geometry.location.lat);
-								String longitude = Double.toString(placeDetails.result.geometry.location.lng);
-								String id = placeDetails.result.getId();
-								
-								
-								
-								//TODO: query DB on name or id to get rating
-								//db.createRow(id, name, 0, "");
-								//db.createRow(placeID, name, rating, comment)
-								
-								//System.out.println(placeDetails.result.id);
+								name = placeDetails.result.name;
+								address = placeDetails.result.formatted_address;
+								phone = placeDetails.result.formatted_phone_number;
+								latitude = Double.toString(placeDetails.result.geometry.location.lat);
+								longitude = Double.toString(placeDetails.result.geometry.location.lng);
+								//String placeID = placeDetails.result.getId();
+
+								//System.out.println(placeID);
+
+
+								//db.createRow(placeDetails.result.id, name, 0, "");
+								//if place exist query and display rating else create place in db
+
+								//txtRatingValue = (TextView) findViewById(R.id.txtRatingValue);
+
+
+
+								//db.close();
 
 								Log.d("Place ", name + address + phone + latitude + longitude);
 
@@ -166,14 +205,12 @@ public class SinglePlaceActivity extends Activity {
 								phone = phone == null ? "Not present" : phone;
 								latitude = latitude == null ? "Not present" : latitude;
 								longitude = longitude == null ? "Not present" : longitude;
-								
-							
-								
+
 								lbl_name.setText(name);
 								lbl_address.setText(address);
 								lbl_phone.setText(Html.fromHtml("<b>Phone:</b> " + phone));
 								lbl_location.setText(Html.fromHtml("<b>Latitude:</b> " + latitude + ", <b>Longitude:</b> " + longitude));
-								
+
 								//TODO:	set rating 
 								//txtRatingValue = (TextView) findViewById(R.id.txtRatingValue);
 								//txtRatingValue.setText(String.valueOf(rating));

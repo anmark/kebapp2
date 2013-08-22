@@ -109,27 +109,27 @@ public class MainActivity extends Activity {
 		//Row r = db.getRow("b");
 		//System.out.println(" single placeID: "+ r.placeID + " Name: " + r.getName()+ " Rating: " + r.getRating() +" Comment: " + r.getComment());
 	
-		DBAdapter db = new DBAdapter(getApplicationContext());
-		db.open();
+		//DBAdapter db = new DBAdapter(getApplicationContext());
+		//db.open();
 		
 		//db.updateRowCommentById("c", "bajs");
 
 		//db.updateRowCommentByName("anmar", "lil");
 		
-		System.out.println(db.rowExists("e"));
+		//System.out.println(db.rowExists("e"));
 		
 		
 		/*
 		db.createRow("a", "anmar", 1, "han");
 		db.createRow("b", "anmara", 2, "är");
 		db.createRow("c", "anmaraa", 3, "bäst");
-		*/
 		
 		for(Row row : db.getAllRows()){
 			System.out.println("placeID: "+ row.placeID + " Name: " + row.getName()+ " Rating: " + row.getRating() +" Comment: " + row.getComment());
 		}
+		*/
 		
-		 db.close();
+		 //db.close();
 		
 		/** Button click event for shown on map */
 		btnShowOnMap.setOnClickListener(new View.OnClickListener() {
