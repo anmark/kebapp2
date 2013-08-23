@@ -312,5 +312,12 @@ public class DBAdapter {
 			return null;
 		}
 	}
+	
+	
+	public void printAllRows(){
+		for(Row row : getAllRows()){
+			System.out.println("placeID: "+ row.placeID + " Name: " + row.getName()+ " Rating: " + row.getRating() +" Comment: " + row.getComment());
+		}
+	}
 
 }

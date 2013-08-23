@@ -48,6 +48,7 @@ public class SinglePlaceActivity extends Activity {
 	private String phone;
 	private String latitude;
 	private String longitude;
+	private String placeID;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -66,9 +67,9 @@ public class SinglePlaceActivity extends Activity {
 		ratingBar = (RatingBar) findViewById(R.id.ratingBar);
 		txtRatingValue = (TextView) findViewById(R.id.txtRatingValue);
 
-		DBAdapter db = new DBAdapter(getApplicationContext());
-		db.open();
-		db.createRow("hallåaaa", "vad", 0, "");
+		db = new DBAdapter(getApplicationContext());
+		//db.open();
+		//db.createRow("hallåaaa", "vad", 0, "");
 		
 		
 		
@@ -76,13 +77,13 @@ public class SinglePlaceActivity extends Activity {
 		//System.out.println(reference+ " " + name);
 		
 		//db.createRow(reference, name, 0, "");
-
+		/*
 		for(Row row : db.getAllRows()){
 			System.out.println("placeID: "+ row.placeID + " Name: " + row.getName()+ " Rating: " + row.getRating() +" Comment: " + row.getComment());
 		}
 		db.close();
 
-		/*
+		
 		placeExist = db.rowExists(placeDetails.result.getId());	
 		if(!placeExist){							
 			db.createRow(placeDetails.result.getId(), placeDetails.result.getName(), 0, "");
@@ -103,9 +104,9 @@ public class SinglePlaceActivity extends Activity {
 			public void onRatingChanged(RatingBar ratingBar, float rating,
 					boolean fromUser) {
 
-				if (placeDetails.result != null) {
-					//db.updateRowRatingById(KEY_REFERENCE, (double) rating);
-				}
+					db.open();
+					db.updateRowRatingById(placeID, (double) rating);
+					db.close();
 				txtRatingValue.setText(String.valueOf(rating));
 
 			}
@@ -175,19 +176,28 @@ public class SinglePlaceActivity extends Activity {
 								phone = placeDetails.result.formatted_phone_number;
 								latitude = Double.toString(placeDetails.result.geometry.location.lat);
 								longitude = Double.toString(placeDetails.result.geometry.location.lng);
-								//String placeID = placeDetails.result.getId();
+								placeID = placeDetails.result.getId();
 
 								//System.out.println(placeID);
-
-
-								//db.createRow(placeDetails.result.id, name, 0, "");
 								//if place exist query and display rating else create place in db
-
-								//txtRatingValue = (TextView) findViewById(R.id.txtRatingValue);
-
-
-
-								//db.close();
+								DBAdapter db = new DBAdapter(getApplicationContext());
+								db.open();
+								//accessDB( placeID,  name);
+								if(!db.rowExists(placeID)){
+									db.createRow(placeID, name, 0, "");
+									txtRatingValue.setText("0");
+								}
+								Double rating = db.getRow(placeID).getRating();
+								txtRatingValue.setText(Double.toString(rating));
+								
+								//float convert workaround
+								Float ratingf = (float) (rating / 1.0);
+								ratingBar.setRating(ratingf);
+								//TODO: remove print								
+								db.printAllRows();
+								db.close();
+								
+								txtRatingValue = (TextView) findViewById(R.id.txtRatingValue);
 
 								Log.d("Place ", name + address + phone + latitude + longitude);
 
@@ -263,6 +273,15 @@ public class SinglePlaceActivity extends Activity {
 
 		}
 
+	}
+	public void accessDB(String id, String name){
+		DBAdapter dba = new DBAdapter(getApplicationContext());
+		dba.open();
+		dba.createRow(id, name, 0, "");
+		for(Row row : db.getAllRows()){
+			System.out.println("placeID: "+ row.placeID + " Name: " + row.getName()+ " Rating: " + row.getRating() +" Comment: " + row.getComment());
+		}
+		db.close();
 	}
 
 }

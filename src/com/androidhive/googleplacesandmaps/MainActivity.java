@@ -109,9 +109,10 @@ public class MainActivity extends Activity {
 		//Row r = db.getRow("b");
 		//System.out.println(" single placeID: "+ r.placeID + " Name: " + r.getName()+ " Rating: " + r.getRating() +" Comment: " + r.getComment());
 	
-		//DBAdapter db = new DBAdapter(getApplicationContext());
-		//db.open();
-		
+		DBAdapter db = new DBAdapter(getApplicationContext());
+		db.open();
+		db.deleteAllRows();
+		db.close();
 		//db.updateRowCommentById("c", "bajs");
 
 		//db.updateRowCommentByName("anmar", "lil");
