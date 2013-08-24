@@ -56,6 +56,21 @@
         android:layout_marginBottom="5dip"
         android:layout_marginTop="15dip" />
 
+     <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dip"
+        android:layout_marginTop="15dip"
+        android:text="@string/Single_Place_Comment"
+        android:textStyle="bold" />
+     
+    <EditText
+        android:id="@+id/Single_Place_CommentValue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textAutoComplete"
+         />
     
       <TextView
         android:layout_width="fill_parent"
