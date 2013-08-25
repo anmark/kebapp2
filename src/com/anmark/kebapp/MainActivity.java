@@ -74,7 +74,11 @@ public class MainActivity extends Activity {
 
 		// button show on map
 		btnShowOnMap = (Button) findViewById(R.id.btn_show_map);
-
+		
+		//TODO: Bad fix, pass arguments to activity instead
+		nearPlaces = SplashScreenActivity.nearPlaces;
+		gps = SplashScreenActivity.gps;
+		
 		// calling background Async task to load Google Places
 		// After getting places from Google all the data is shown in listview
 		new LoadPlaces().execute();
@@ -141,7 +145,7 @@ public class MainActivity extends Activity {
 		protected String doInBackground(String... args) {
 			// creating Places class object
 			googlePlaces = new GooglePlaces();
-			nearPlaces = SplashScreenActivity.nearPlaces;
+			//nearPlaces = SplashScreenActivity.nearPlaces;
 			return null;
 		}
 

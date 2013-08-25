@@ -34,7 +34,7 @@ public class SplashScreenActivity extends Activity {
 	public static PlacesList nearPlaces;
 
 	// GPS Location
-	GPSTracker gps;
+	public static GPSTracker gps;
 
 	// Button
 	Button btnShowOnMap;
