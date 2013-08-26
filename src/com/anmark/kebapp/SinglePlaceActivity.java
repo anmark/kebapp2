@@ -1,18 +1,20 @@
 package com.anmark.kebapp;
 
-import com.anmark.kebapp.DBAdapter.Row;
-
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.RatingBar.OnRatingBarChangeListener;
 import android.widget.TextView;
+
+import com.anmark.kebapp.DBAdapter.Row;
 
 public class SinglePlaceActivity extends Activity {
 	// flag for Internet connection status
@@ -40,10 +42,11 @@ public class SinglePlaceActivity extends Activity {
 
 	private RatingBar ratingBar;
 	private TextView txtRatingValue;
+	private TextView txtComment;
 	private EditText txtCommentValue;
 	private DBAdapter db;
 	private String reference;
-	
+
 	private String name;
 	private String address;
 	private String phone;
@@ -66,33 +69,41 @@ public class SinglePlaceActivity extends Activity {
 
 		ratingBar = (RatingBar) findViewById(R.id.ratingBar);
 		txtRatingValue = (TextView) findViewById(R.id.txtRatingValue);
-		txtCommentValue = (EditText) findViewById(R.id.Single_Place_CommentValue);
+
+		txtComment = (TextView) findViewById(R.id.Single_Place_Comment);
+
 		db = new DBAdapter(getApplicationContext());
-		//db.open();
-		//db.createRow("hallåaaa", "vad", 0, "");
-		
-		
-		//System.out.println(reference+ " " + name);
-		
-		//db.createRow(reference, name, 0, "");
-		/*
-		for(Row row : db.getAllRows()){
-			System.out.println("placeID: "+ row.placeID + " Name: " + row.getName()+ " Rating: " + row.getRating() +" Comment: " + row.getComment());
-		}
-		db.close();
 
-		
-		placeExist = db.rowExists(placeDetails.result.getId());	
-		if(!placeExist){							
-			db.createRow(placeDetails.result.getId(), placeDetails.result.getName(), 0, "");
-			txtRatingValue.setText(0);
-			//TODO:comment
-		}
-
-		txtRatingValue.setText(Double.toString(db.getRow(placeDetails.result.getId()).getRating()));
-		 */
 		addListenerOnRatingBar();
 	}
+	
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+	    super.onConfigurationChanged(newConfig);
+
+	}
+	
+	public void newComment(View view) {
+		Intent i = new Intent(getApplicationContext(), SinglePlaceCommentActivity.class);
+		i.putExtra("placeID", placeID);
+		startActivityForResult(i, 1);
+	}
+
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+		if (requestCode == 1) {
+
+			if(resultCode == RESULT_OK){      
+				String tempPlaceID = data.getStringExtra("placeID");  
+				db.open();
+				txtComment.setText(db.getRow(tempPlaceID).getComment());
+				db.close();
+			}
+			if (resultCode == RESULT_CANCELED) {    
+				//TODO: if there's no result
+			}
+		}
+	}	
 
 	public void addListenerOnRatingBar() {
 
@@ -102,9 +113,9 @@ public class SinglePlaceActivity extends Activity {
 			public void onRatingChanged(RatingBar ratingBar, float rating,
 					boolean fromUser) {
 
-					db.open();
-					db.updateRowRatingById(placeID, (double) rating);
-					db.close();
+				db.open();
+				db.updateRowRatingById(placeID, (double) rating);
+				db.close();
 				txtRatingValue.setText(String.valueOf(rating));
 
 			}
@@ -146,7 +157,7 @@ public class SinglePlaceActivity extends Activity {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
+
 			return null;
 		}
 
@@ -184,17 +195,22 @@ public class SinglePlaceActivity extends Activity {
 								if(!db.rowExists(placeID)){
 									db.createRow(placeID, name, 0, "");
 									txtRatingValue.setText("0");
+
 								}
+
+								String comment = db.getRow(placeID).getComment();
+								txtComment.setText(comment);
+
 								Double rating = db.getRow(placeID).getRating();
 								txtRatingValue.setText(Double.toString(rating));
-								
+
 								//float convert workaround
 								Float ratingf = (float) (rating / 1.0);
 								ratingBar.setRating(ratingf);
 								//TODO: remove print								
-								db.printAllRows();
+								//db.printAllRows();
 								db.close();
-								
+
 								txtRatingValue = (TextView) findViewById(R.id.txtRatingValue);
 
 								Log.d("Place ", name + address + phone + latitude + longitude);

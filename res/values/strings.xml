@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Kebapp</string>
+    <string name="app_name">Kebapp!</string>
     <string name="menu_settings">Settings</string>
-    <string name="title_activity_main">Kebapp!</string>
+    <string name="title_activity_main">Your nearest kebab places!</string>
     <string name="Single_Place_Rating">Kebab Rating: </string>
-    <string name="Single_Place_Comment">Comment</string>
-    <string name="title_activity_splash_screen">SplashScreenActivity</string>
+    <string name="Single_Place_Comment">Comment:</string>
+    <string name="Single_Place_SaveComment">Save new comment</string>
+    <string name="Single_Place_NewComment">Create new comment</string>
+    <string name="title_activity_splash_screen">Kebapp!</string>
     <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_single_place_comment">SinglePlaceCommentActivity</string>
 
 </resources>

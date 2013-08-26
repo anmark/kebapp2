@@ -3,6 +3,7 @@ package com.anmark.kebapp;
 import java.util.List;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -125,6 +126,12 @@ public class PlacesMapActivity2 extends MapActivity {
 		mc.animateTo(new GeoPoint((maxLat + minLat)/2, (maxLong + minLong)/2 ));
 		mapView.postInvalidate();
 
+	}
+	
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+	    super.onConfigurationChanged(newConfig);
+	   
 	}
 
 	@Override

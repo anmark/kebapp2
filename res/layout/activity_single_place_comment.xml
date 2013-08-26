@@ -1,0 +1,26 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SinglePlaceCommentActivity" >
+   
+  <EditText
+        android:id="@+id/Single_Place_CommentValue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textAutoComplete"
+        android:freezesText="true"
+         />
+
+    <Button
+        android:id="@+id/buttonSaveComment"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/Single_Place_CommentValue"
+        android:onClick="saveComment"
+        android:text="@string/Single_Place_SaveComment" />
+
+</RelativeLayout>

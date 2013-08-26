@@ -3,6 +3,7 @@ package com.anmark.kebapp;
 import java.util.List;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -174,6 +175,12 @@ public class PlacesMapActivity extends MapActivity {
 	    // Show the current location in Google Map        
 	    mapView.moveCamera(CameraUpdateFactory.newLatLng(latLng));
 	    mapView.animateCamera(CameraUpdateFactory.zoomTo(15));
+	}
+	
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+	    super.onConfigurationChanged(newConfig);
+	   
 	}
 
 	@Override

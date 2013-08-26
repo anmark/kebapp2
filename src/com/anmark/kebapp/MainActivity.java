@@ -7,6 +7,7 @@ import java.util.HashMap;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -114,6 +115,13 @@ public class MainActivity extends Activity {
 				// getting values from selected ListItem
 				String reference = ((TextView) view.findViewById(R.id.reference)).getText().toString();
 
+				/*
+				DBAdapter db = new DBAdapter(getApplicationContext());
+				db.open();
+				db.deleteAllRows();
+				db.close();
+				
+				*/
 				// Starting new intent
 				Intent in = new Intent(getApplicationContext(),
 						SinglePlaceActivity.class);
@@ -124,6 +132,12 @@ public class MainActivity extends Activity {
 				startActivity(in);
 			}
 		});
+	}
+	
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+	    super.onConfigurationChanged(newConfig);
+	  
 	}
 
 	/**
@@ -165,6 +179,7 @@ public class MainActivity extends Activity {
 					 * Updating parsed Places into LISTVIEW
 					 * */
 					// Get json response status
+					System.out.println("nearplaces status " + nearPlaces.status);
 					String status = nearPlaces.status;
 
 					// Check for all possible status
