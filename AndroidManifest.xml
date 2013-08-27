@@ -61,18 +61,17 @@
             android:windowSoftInputMode="stateHidden" >
         </activity>
 
-        <!-- PlacesMapActivity -->
+        <!-- PlacesMapActivityV2 -->
         <activity
-            android:name="com.anmark.kebapp.PlacesMapActivity"
+            android:name="com.anmark.kebapp.PlacesMapActivityV2"
             android:label="Near Kebab Places Map View" >
         </activity>
 
-        <!-- PlacesMapActivity2 -->
+        <!-- PlacesMapActivityV1 -->
         <activity
-            android:name="com.anmark.kebapp.PlacesMapActivity2"
-            android:label="Near kebab places map view"
+            android:name="com.anmark.kebapp.PlacesMapActivityV1"
             android:configChanges="keyboardHidden|orientation|screenSize"
-             >
+            android:label="Near kebab places map view" >
         </activity>
 
         <!-- SinglePlaceCommentActivity -->

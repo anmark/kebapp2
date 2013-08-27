@@ -3,7 +3,6 @@ package com.anmark.kebapp;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.view.Gravity;
 
 public class AlertDialogManager {
 	/**
@@ -14,6 +13,7 @@ public class AlertDialogManager {
 	 * @param status - success/failure (used to set icon)
 	 * 				 - pass null if you don't want icon
 	 * */
+	@SuppressWarnings("deprecation")
 	public void showAlertDialog(Context context, String title, String message,
 			Boolean status) {
 		AlertDialog alertDialog = new AlertDialog.Builder(context).create();

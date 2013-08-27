@@ -1,8 +1,5 @@
 package com.anmark.kebapp;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -13,8 +10,6 @@ import android.os.Handler;
 import android.text.Html;
 import android.util.Log;
 import android.view.Gravity;
-import android.widget.Button;
-import android.widget.ListView;
 
 
 public class SplashScreenActivity extends Activity {
@@ -37,23 +32,10 @@ public class SplashScreenActivity extends Activity {
 	// GPS Location
 	public static GPSTracker gps;
 
-	// Button
-	Button btnShowOnMap;
-
 	// Progress dialog
 	ProgressDialog pDialog;
 
-	// Places Listview
-	ListView lv;
 
-	// ListItems data
-	ArrayList<HashMap<String, String>> placesListItems = new ArrayList<HashMap<String,String>>();
-
-
-	// KEY Strings
-	public static String KEY_REFERENCE = "reference"; // id of the place
-	public static String KEY_NAME = "name"; // name of the place
-	public static String KEY_VICINITY = "vicinity"; // Place area name
 	public static boolean noGo = true;
 	// Splash screen timer
 	private static int SPLASH_TIME_OUT = 2000;
@@ -62,7 +44,7 @@ public class SplashScreenActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_splash_screen);
-	
+
 		cd = new ConnectionDetector(getApplicationContext());
 
 		// Check if Internet present
@@ -91,36 +73,27 @@ public class SplashScreenActivity extends Activity {
 			return;
 		}
 
+		//TODO:
 		noGo = false;
 
-		   new Handler().postDelayed(new Runnable() {
-			   
-	            /*
-	             * Showing splash screen with a timer. This will be useful when you
-	             * want to show case your app logo / company
-	             */
-	 
-	            @Override
-	            public void run() {
-	                // This method will be executed once the timer is over
-	            	
-	            	// calling background Async task to load Google Places
-	        		new LoadPlaces().execute();
-	          
-	            }
-	        }, SPLASH_TIME_OUT);
-	
+		new Handler().postDelayed(new Runnable() {
 
-		
-
+			// Showing splash screen with a timer
+			@Override
+			public void run() {
+				// This method will be executed once the timer is over
+				// calling background Async task to load Google Places
+				new LoadPlaces().execute();
+			}
+		}, SPLASH_TIME_OUT);
 	}
 
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
-	    super.onConfigurationChanged(newConfig);
-	    setContentView(R.layout.activity_splash_screen);
+		super.onConfigurationChanged(newConfig);
+		setContentView(R.layout.activity_splash_screen);
 	}
-	
+
 	/**
 	 * Background Async Task to Load Google places
 	 * */
@@ -133,7 +106,7 @@ public class SplashScreenActivity extends Activity {
 		protected void onPreExecute() {
 			super.onPreExecute();
 			pDialog = new ProgressDialog(SplashScreenActivity.this);
-			pDialog.setMessage(Html.fromHtml("<b>Search</b><br/>Loading Places..."));
+			pDialog.setMessage(Html.fromHtml("<b>Search</b><br/>Loading kebab places..."));
 			pDialog.setIndeterminate(false);
 			pDialog.setCancelable(false);
 			pDialog.getWindow().setGravity(Gravity.BOTTOM);
@@ -158,7 +131,7 @@ public class SplashScreenActivity extends Activity {
 				//double radius = 1000; // 1000 meters 
 				String rankby = "distance";
 
-				// get nearest places
+				// get nearest places ranked by distance
 				nearPlaces = googlePlaces.search(gps.getLatitude(),
 						gps.getLongitude(), types, keyword,  rankby);
 
@@ -178,7 +151,7 @@ public class SplashScreenActivity extends Activity {
 		protected void onPostExecute(String file_url) {
 			// dismiss the dialog after getting all products
 			pDialog.dismiss();
-			
+
 			// After completing http call
 			// will close this activity and lauch main activity
 			Intent i = new Intent(SplashScreenActivity.this, MainActivity.class);

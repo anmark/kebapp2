@@ -3,15 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SinglePlaceCommentActivity" >
-   
-  <EditText
+
+    <EditText
         android:id="@+id/Single_Place_CommentValue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textAutoComplete"
         android:freezesText="true"
-         />
+        android:inputType="textAutoComplete"
+        android:labelFor="@+id/Single_Place_CommentValue" />
 
     <Button
         android:id="@+id/buttonSaveComment"

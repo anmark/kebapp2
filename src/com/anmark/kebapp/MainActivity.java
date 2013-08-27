@@ -1,6 +1,5 @@
 package com.anmark.kebapp;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -10,9 +9,6 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
-import android.text.Html;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
@@ -22,8 +18,6 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
-
-import com.anmark.kebapp.DBAdapter.Row;
 
 
 public class MainActivity extends Activity {
@@ -90,7 +84,7 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View arg0) {
 				Intent i = new Intent(getApplicationContext(),
-						PlacesMapActivity2.class);
+						PlacesMapActivityV2.class);
 				// Sending user current geo location
 				i.putExtra("user_latitude", Double.toString(gps.getLatitude()));
 				i.putExtra("user_longitude", Double.toString(gps.getLongitude()));
@@ -213,7 +207,7 @@ public class MainActivity extends Activity {
 					}
 					else if(status.equals("ZERO_RESULTS")){
 						// Zero results found
-						alert.showAlertDialog(MainActivity.this, "Near Places",
+						alert.showAlertDialog(MainActivity.this, "Near kebab places",
 								"Sorry no places found. Try to change the types of places",
 								false);
 					}
