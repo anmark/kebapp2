@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.anmark.test"
+    package="com.anmark.kebapp"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -9,14 +9,14 @@
         android:targetSdkVersion="18" />
 
     <permission
-        android:name="com.anmark.test.permission.MAPS_RECEIVE"
+        android:name="com.anmark.kebapp.permission.MAPS_RECEIVE"
         android:protectionLevel="signature" />
 
     <uses-feature
         android:glEsVersion="0x00020000"
         android:required="true" />
 
-    <uses-permission android:name="com.anmark.test.permission.MAPS_RECEIVE" />
+    <uses-permission android:name="com.anmark.kebapp.permission.MAPS_RECEIVE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -36,7 +36,7 @@
 
         <!-- SplashScreenActivity -->
         <activity
-            android:name="com.anmark.test.SplashScreenActivity"
+            android:name="com.anmark.kebapp.SplashScreenActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/title_activity_splash_screen" >
             <intent-filter>
@@ -48,14 +48,14 @@
 
         <!-- MainActivity -->
         <activity
-            android:name="com.anmark.test.MainActivity"
+            android:name="com.anmark.kebapp.MainActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/title_activity_main" >
         </activity>
 
         <!-- SinglePlaceActivity -->
         <activity
-            android:name="com.anmark.test.SinglePlaceActivity"
+            android:name="com.anmark.kebapp.SinglePlaceActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="Place Details"
             android:windowSoftInputMode="stateHidden" >
@@ -63,31 +63,31 @@
 
         <!-- PlacesMapActivityV2 -->
         <activity
-            android:name="com.anmark.test.PlacesMapActivityV2"
+            android:name="com.anmark.kebapp.PlacesMapActivityV2"
             android:label="Near Kebab Places Map View" >
         </activity>
 
         <!-- PlacesMapActivityV1 -->
         <activity
-            android:name="com.anmark.test.PlacesMapActivityV1"
+            android:name="com.anmark.kebapp.PlacesMapActivityV1"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="Near kebab places map view" >
         </activity>
 
         <!-- SinglePlaceCommentActivity -->
         <activity
-            android:name="com.anmark.test.SinglePlaceCommentActivity"
+            android:name="com.anmark.kebapp.SinglePlaceCommentActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/title_activity_single_place_comment"
-            android:parentActivityName="com.anmark.test.SinglePlaceActivity" >
+            android:parentActivityName="com.anmark.kebapp.SinglePlaceActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.anmark.test.SinglePlaceActivity" />
+                android:value="com.anmark.kebapp.SinglePlaceActivity" />
         </activity>
 
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyCGYwOqxXpBeW5kJdZV8OmbnmVOD-saOno" />
+            android:value="AIzaSyDJYb7-8l_nxqb3UOI04_JFnq3PjyPQgC0" />
     </application>
 
 </manifest>
